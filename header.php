@@ -45,6 +45,9 @@ session_start();
                 <li class="nav-item">
                     <a class="nav-link" href="rooms.php">Rooms</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="mobile.php">Mobile APP</a>
+                </li>
                 <?php
                 if (isset($_SESSION['userId'])) { //first check if someone is logged in
                     if ($_SESSION['userRole'] == "Customer") {
@@ -104,14 +107,14 @@ session_start();
                  aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header" style="background-color: #404040; color: white;">
+                        <div class="modal-header" style="background-color: #1f1f1f; color: white;">
                             <h5 class="modal-title" id="exampleModalLabel">Sign up Form</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                                     style="color: white;">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body" style="background-color: #666666;
+                        <div class="modal-body" style="background-color: #1f1f1f;
 								color: white;">
                             <!-- Sign in Forum -->
                             <form action="classes/signup.class.php" method="post" id="signup-form">

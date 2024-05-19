@@ -24,8 +24,7 @@ class UserSignup
 
     public function insert_new_user()
     {
-
-        //connecting to database
+        global $conn;
         include "../includes/connectDB.inc.php";
 
         $firstname = mysqli_real_escape_string($conn, $this->firstName);
@@ -35,7 +34,6 @@ class UserSignup
         $password = mysqli_real_escape_string($conn, $this->password);
         $phone = mysqli_real_escape_string($conn, $this->phoneNumber);
 
-        //first select all the emails and usernames that exists in database
         $query1 = "SELECT userName, userEmail FROM users";
 
         $result1 = $conn->query($query1);
@@ -45,7 +43,6 @@ class UserSignup
 
             foreach ($result1 as $row1) {
 
-                //check if the input of user exists on the database
                 if ($username == $row1['userName']) {
                     header("Location: ../index.php?signup=userNameExists");
                     exit;
@@ -56,14 +53,11 @@ class UserSignup
             }
 
 
-            //before inserting the data we need to hash user's password
             $hashedPassw = password_hash($password, PASSWORD_DEFAULT);
 
-            //insert the data to database
             $query = "INSERT INTO users (userFirstName, userLastName, userEmail, userName, userPassw, userPhone) 
 			VALUES ('$firstname', '$lastname', '$email', '$username', '$hashedPassw', '$phone')";
 
-            //Check sign up insertion
             if ($conn->query($query) == true) {
                 header("Location: ../index.php?signup=succes");
                 exit();
@@ -77,10 +71,9 @@ class UserSignup
     public function insert_new_user_admin()
     {
 
-        //connecting to database
+        global $conn;
         include "../includes/connectDB.inc.php";
 
-        //first select all the emails and usernames that exists in database
         $query1 = "SELECT userName, userEmail FROM users";
 
         $result1 = $conn->query($query1);
@@ -100,14 +93,11 @@ class UserSignup
                 }
             }
 
-            //before inserting the data we need to hash user's password
             $hashedPassw = password_hash($this->password, PASSWORD_DEFAULT);
 
-            //insert the data to database
             $query = "INSERT INTO users (userFirstName, userLastName, userEmail, userName, userPassw, userPhone, role) 
 		VALUES ('$this->firstName', '$this->lastName', '$this->email', '$this->username', '$hashedPassw', '$this->phoneNumber', '$this->userRole')";
 
-            //Check sign up insertion
             if ($conn->query($query) == true) {
                 header("Location: ../addUser.php?userAdded=succes");
                 exit();
@@ -119,7 +109,6 @@ class UserSignup
     }
 }
 
-//check if submit button
 if (isset($_POST['signup-submit'])) {
     $newUser = new UserSignup($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['username'], $_POST['password'], $_POST['phonenumber'], null);
 

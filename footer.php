@@ -1,5 +1,19 @@
 </div>
 
+<!-- Footer -->
+<footer class="bg-dark text-center text-white">
+
+    <div class="text-center p-3" style="background-color: #171717;">
+        Made with ❤️ by: <a class="text-white" href="https://github.com/t0ry003" target="_blank">t0ry003</a>
+    </div>
+
+    <?php
+    $ip = $_SERVER['REMOTE_ADDR'];
+    echo "<div class='text-center p-2' style='background-color: #171717;'>Your IP: $ip</div>";
+    ?>
+</footer>
+<!-- End Footer -->
+
 <!-- Bootstrap Script -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

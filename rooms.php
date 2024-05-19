@@ -47,7 +47,7 @@ require "header.php";
 
             ?>
 
-            <div class="jumbotron" style="background-color: #0e0e0e; margin-top: -30px; margin-bottom: -80px;">
+            <div class="jumbotron" style="background-color: #0e0e0e; margin-top: -30px;">
                 <h1 class="title" style="text-align: center;">Opened Rooms</h1>
                 <div class="jumbotron" style="background-color: #0e0e0e; margin-top: -30px;">
 
