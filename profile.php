@@ -9,7 +9,7 @@ require "header.php";
             text-align: center;
             border: 1px solid #96E9C6;
             width: 70%;
-            margin: 0px auto;
+            margin: 0 auto;
         }
 
         .custom-table th, .custom-table td {

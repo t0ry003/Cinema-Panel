@@ -30,7 +30,6 @@ session_start();
 <body style="background-color: #0e0e0e;">
 
 <header>
-
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #6962AD;">
         <a class="navbar-brand" href="index.php"><strong>Cinema</strong></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -49,7 +48,7 @@ session_start();
                     <a class="nav-link" href="mobile.php">Mobile APP</a>
                 </li>
                 <?php
-                if (isset($_SESSION['userId'])) { //first check if someone is logged in
+                if (isset($_SESSION['userId'])) {
                     if ($_SESSION['userRole'] == "Customer") {
                         echo '<li class="nav-item">
 									<a class="nav-link" href="profile.php">Profile</a>
@@ -98,11 +97,9 @@ session_start();
 							<button class="button1" type="submit" name="login-submit">Log in</button> 
 							</form> 
 							
-							<!-- Button trigger modal -->
 							<button class="button1" type="submit" data-toggle="modal" data-target="#exampleModal">Sign up</button>';
             }
             ?>
-            <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog">
@@ -116,7 +113,6 @@ session_start();
                         </div>
                         <div class="modal-body" style="background-color: #1f1f1f;
 								color: white;">
-                            <!-- Sign in Forum -->
                             <form action="classes/signup.class.php" method="post" id="signup-form">
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
@@ -141,17 +137,16 @@ session_start();
                                                required>
                                     </div>
                                     <script>
-                                        //Check if the repeated password is the same with the first password
                                         $(document).ready(function () {
                                             $('#inputPassword4, #inputRpassw').on('keyup', function () {
                                                 if (!$('#inputRpassw').val() && !$('#inputPassword4')
-                                                    .val()) { //check if the boxes are empty
+                                                    .val()) {
                                                     $('#message').html('');
                                                     $('#inputPassword4').css('box-shadow', 'none');
                                                     $('#inputRpassw').css('box-shadow', 'none');
                                                 } else if ($('#inputPassword4').val() == $(
                                                     '#inputRpassw')
-                                                    .val()) { //check if they are the same
+                                                    .val()) {
                                                     $('#message').html('Matching').css('color',
                                                         'green');
                                                     $('#inputPassword4').css('box-shadow',
@@ -160,7 +155,7 @@ session_start();
                                                         '0px 0px 8px green');
                                                 } else if ($('#inputPassword4').val() != $(
                                                     '#inputRpassw')
-                                                    .val()) { //check if they are not matching
+                                                    .val()) {
                                                     $('#message').html('Not Matching').css('color',
                                                         'red');
                                                     $('#inputRpassw').css('box-shadow',
@@ -192,13 +187,11 @@ session_start();
                                         style="background-color: #404040;">Sign up
                                 </button>
                             </form>
-                            <!-- End of Forum -->
 
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- End of Modal -->
         </div>
     </nav>
 

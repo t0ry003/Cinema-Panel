@@ -32,7 +32,7 @@ if ($url === "http://localhost/cinema/createSchedule.php?scheduleCreated=success
 
             <?php
 
-            if (isset($_GET['editSchedule'])) { //check if edit button was pressed and display the edit form
+            if (isset($_GET['editSchedule'])) {
 
                 include "includes/connectDB.inc.php";
 

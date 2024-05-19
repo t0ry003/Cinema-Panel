@@ -39,6 +39,7 @@ class Room
 
     public function deleteRoom()
     {
+        global $conn;
         include "../includes/connectDB.inc.php";
 
         $query1 = "DELETE FROM rooms WHERE room_id = $this->room_id ";
@@ -56,6 +57,7 @@ class Room
 
     public function editRoom()
     {
+        global $conn;
         include "../includes/connectDB.inc.php";
 
         $query = "UPDATE rooms
@@ -81,14 +83,14 @@ if (isset($_POST['submit-roomCr'])) {
 
     $image = addslashes(file_get_contents($_FILES['uploadfile']['tmp_name']));
 
-    $newRoom = new Room(null, $_POST['roomName'], $_POST['columnNr'], $_POST['rowNr'], $_POST['roomDescription'], $image); //we put null to the first parameter as we dont need it in this action
+    $newRoom = new Room(null, $_POST['roomName'], $_POST['columnNr'], $_POST['rowNr'], $_POST['roomDescription'], $image);
 
     $newRoom->addRoom();
 }
 
 if (isset($_GET['deleteRoom'])) {
 
-    $deleteRoom = new Room($_GET['deleteRoom'], null, null, null, null, null); //we put null to the other parameters as we don't need them
+    $deleteRoom = new Room($_GET['deleteRoom'], null, null, null, null, null);
 
     $deleteRoom->deleteRoom();
 }

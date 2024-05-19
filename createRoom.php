@@ -7,9 +7,7 @@ require "header.php";
 
 $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 
-//check urls to display the correct alert
 if ($url === "http://localhost/cinema/createRoom.php?roomCreated=success") {
-
     echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
     Room was created successfully!
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -17,7 +15,6 @@ if ($url === "http://localhost/cinema/createRoom.php?roomCreated=success") {
     </button>
   </div>';
 } else if ($url === "http://localhost/cinema/createRoom.php?roomCreated=failed") {
-
     echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
     Room can not be created, Unknown Error!
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -32,7 +29,7 @@ if ($url === "http://localhost/cinema/createRoom.php?roomCreated=success") {
 
         <?php
 
-        if (isset($_GET['editRoom'])) { //check if edit button was pressed and display the edit form
+        if (isset($_GET['editRoom'])) {
 
             include "includes/connectDB.inc.php";
 
@@ -43,7 +40,6 @@ if ($url === "http://localhost/cinema/createRoom.php?roomCreated=success") {
             $result = $conn->query($query);
             $row = mysqli_fetch_assoc($result);
 
-            //show edit form
             echo '
                 <div style="margin: 35px 0 35px 0 ;">
         <h1 class="title" style="text-align: center; margin-bottom: 30px;">Update Room</h1>
@@ -77,7 +73,7 @@ if ($url === "http://localhost/cinema/createRoom.php?roomCreated=success") {
             </div>
         </form>
             ';
-        } else { //else show creation form
+        } else {
             echo '
                 <div style="margin: 35px 0 35px 0 ;">
         <h1 class="title" style="text-align: center; margin-bottom: 30px;">Create Room</h1>

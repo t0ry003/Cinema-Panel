@@ -1,5 +1,6 @@
 <?php
 
+global $conn;
 include "includes/connectDB.inc.php";
 
 $query = "SELECT movies.movieName, rooms.roomName, rooms.seat_column, rooms.seat_row, schedule.startDate, schedule.startHours, schedule.schedule_id

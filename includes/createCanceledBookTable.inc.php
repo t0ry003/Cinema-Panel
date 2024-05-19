@@ -1,14 +1,9 @@
 <?php
 
+global $conn;
 include "includes/connectDB.inc.php";
 
 $query = "SELECT * FROM canceledbookings";
-
-/* SELECT users.userEmail, schedule.startDate, movies.movieName, schedule.startHours, canceledbookings.cancelDate
-            FROM users
-            INNER JOIN canceledbookings ON users.userID = canceledbookings.user_id
-            INNER JOIN schedule ON schedule.schedule_id = canceledbookings.schedule_id
-            INNER JOIN movies ON schedule.movie_id = movies.movie_id */
 
 $result = $conn->query($query);
 $row = mysqli_fetch_assoc($result);

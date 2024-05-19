@@ -15,7 +15,7 @@ require "header.php";
                 echo "<div class='text-center p-3'>HOST IP: $localIP</div>";
                 $qrCodeLink = "http://" . $localIP . "/Cinema";
                 ?>
-                <center>
+                <div style="text-align: center;">
                     <h4>Scan the QR code to access the website</h4>
                     <div class='text-center p-3'>Need to be on the same device, since the app is not published
                         anywhere!
@@ -23,7 +23,7 @@ require "header.php";
                     <a href="./qrcode.php?text=<?php echo $qrCodeLink ?>" target="_blank"><img
                             alt="<?php echo $qrCodeLink ?>" src="./qrcode.php?text=<?php echo $qrCodeLink ?>"/></a>
                     <div class='text-center p-3'>❤️ Thanks for visiting ❤️</div>
-                </center>
+                </div>
             </div>
 
         </div>

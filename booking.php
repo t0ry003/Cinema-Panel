@@ -1,4 +1,5 @@
 <?php
+global $conn;
 require "header.php"
 ?>
 
@@ -32,12 +33,10 @@ require "header.php"
         <div class="jumbotron" style="background-color: #0e0e0e; ">
 
             <?php
-            //check which button was pressed and display form
-            if (isset($_GET['scheduleID'])) { //book now button
+            if (isset($_GET['scheduleID'])) {
 
                 $id = $_GET['scheduleID'];
 
-                //connecting to database
                 include "includes/connectDB.inc.php";
 
                 $query = "SELECT movies.movieName, rooms.roomName, schedule.startDate, schedule.startHours, schedule.schedule_id
@@ -55,15 +54,14 @@ require "header.php"
                         <form action="classes/booking.class.php" method="POST">
 
                             <?php
-                            //check if administrator is booking and display one more field for the customer input
                             if (isset($_SESSION['userId'])) {
                                 if ($_SESSION['userRole'] == "Administrator") {
 
-                                    $buttonName = "submit-booking-admin"; //if its the admin we send data with this post name
+                                    $buttonName = "submit-booking-admin";
 
                                     include "includes/connectDB.inc.php";
 
-                                    $selectUser = "SELECT userID, userEmail FROM users"; //select all users emails and ids
+                                    $selectUser = "SELECT userID, userEmail FROM users";
 
                                     $result1 = $conn->query($selectUser);
                                     $row1 = mysqli_fetch_assoc($result1);
@@ -77,7 +75,7 @@ require "header.php"
 
                                             if ($result1->num_rows > 0) {
 
-                                                foreach ($result1 as $row1) { //display users emails with value their id
+                                                foreach ($result1 as $row1) {
 
                                                     echo '<option value="' . $row1['userID'] . '">' . $row1['userEmail'] . '</option>';
                                                 }
@@ -91,7 +89,7 @@ require "header.php"
 
                                 } else {
 
-                                    $buttonName = "submit-booking"; //if its the customer we send data with this post name
+                                    $buttonName = "submit-booking";
 
                                 }
                             }
@@ -136,7 +134,7 @@ require "header.php"
                 </div>
 
                 <?php
-            } else if (isset($_GET['editBooking'])) { //edit button
+            } else if (isset($_GET['editBooking'])) {
 
                 $id = $_GET['editBooking'];
 
@@ -152,7 +150,6 @@ require "header.php"
                 $result = $conn->query($query);
                 $row = mysqli_fetch_assoc($result);
 
-                //a query that selects scheduled movies so we have options to update the booking
                 $query2 = "SELECT movieName FROM movies, schedule WHERE schedule.movie_id = movies.movie_id";
 
                 $result2 = $conn->query($query2);
@@ -162,7 +159,6 @@ require "header.php"
                     <h1 style="text-align: center; margin-bottom: 30px;">Update Ticket</h1>
                     <div style="max-width: 50%; text-align: center; margin: auto;">
                         <form action="classes/booking.class.php" method="POST">
-                            <!-- send this old data without displaying them as we need them to manipulate the seats from database -->
                             <input type="text" style="display: none;" name="booking_idH"
                                    value="<?php echo $row['booking_id']; ?>">
                             <input type="text" style="display: none;" name="oldSeatID_H"
@@ -225,11 +221,10 @@ require "header.php"
                     </div>
                 </div>
                 <?php
-            } else { //no button pressed
+            } else {
 
             include "includes/connectDB.inc.php";
 
-            //select all the movies that are scheduled 
             $query = "SELECT movieName FROM movies, schedule WHERE schedule.movie_id = movies.movie_id";
 
             $result = $conn->query($query);
@@ -243,15 +238,14 @@ require "header.php"
                     <form action="classes/booking.class.php" method="post">
 
                         <?php
-                        //check if administrator is booking and display one more field for the customer input
                         if (isset($_SESSION['userId'])) {
                             if ($_SESSION['userRole'] == "Administrator") {
 
-                                $buttonName = "submit-booking-admin"; //if its the admin we send data with this post name 
+                                $buttonName = "submit-booking-admin";
 
                                 include "includes/connectDB.inc.php";
 
-                                $selectUser = "SELECT userID, userEmail, userFirstName, userLastName FROM users"; //select all users emails and ids
+                                $selectUser = "SELECT userID, userEmail, userFirstName, userLastName FROM users";
 
                                 $result1 = $conn->query($selectUser);
                                 $row1 = mysqli_fetch_assoc($result1);
@@ -265,7 +259,7 @@ require "header.php"
 
                                         if ($result1->num_rows > 0) {
 
-                                            foreach ($result1 as $row1) { //display users emails with value their id
+                                            foreach ($result1 as $row1) {
 
                                                 echo '<option value="' . $row1['userID'] . '">' . $row1['userEmail'] . '</option>';
                                             }
@@ -279,7 +273,7 @@ require "header.php"
 
                             } else {
 
-                                $buttonName = "submit-booking"; //if its the customer we send data with this post name 
+                                $buttonName = "submit-booking";
 
                             }
                         }
@@ -302,7 +296,6 @@ require "header.php"
 
                         <div class="form-group">
                             <select class="custom-select" id="inputGroupSelectRoom" name="room" required>
-                                <!-- We need this to be selected and have a value for a php check -->
                                 <option value="nothing" selected>Select Room</option>
                             </select>
                         </div>
@@ -340,7 +333,7 @@ require "header.php"
 
     </main>
 
-    <script src="ajaxQueries/ajaxTicket.js"></script> <!-- link js file with ajax -->
+    <script src="ajaxQueries/ajaxTicket.js"></script>
 
 <?php
 require "footer.php"

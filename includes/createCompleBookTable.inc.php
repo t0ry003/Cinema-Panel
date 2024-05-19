@@ -1,6 +1,7 @@
 <?php
 
 //connecting to database
+global $conn;
 include "includes/connectDB.inc.php";
 
 

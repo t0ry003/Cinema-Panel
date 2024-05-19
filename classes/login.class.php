@@ -15,6 +15,7 @@ class UserLogin
     public function login_User()
     {
 
+        global $conn;
         include "../includes/connectDB.inc.php";
 
         $username = mysqli_real_escape_string($conn, $this->username);

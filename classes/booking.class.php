@@ -1,6 +1,6 @@
 <?php
 
-session_start(); //Start a session here to see who is logged in and get his id from $_SESSION
+session_start();
 
 class Booking
 {
@@ -10,7 +10,6 @@ class Booking
     private $hour;
     private $room;
     private $seats;
-    // we need these variables to update seat status by storing the old values here 
     private $datePrevious;
     private $hourPrevious;
     private $roomPrevious;
@@ -34,14 +33,11 @@ class Booking
         $this->reSeatID = $reSeatID;
     }
 
-    public function addBooking($userId) //The parameter gets the user's id so we can know who is booking 
+    public function addBooking($userId)
     {
-        //connecting to database
         global $conn;
         include "../includes/connectDB.inc.php";
 
-        //insert user id and the schedule he choosed by checking one by one his choices
-        //if the choices he made are the same of one row of the schedule table than get its id
         $query = "INSERT INTO booking (user_id, schedule_id) 
                 SELECT userID, schedule_id  FROM users, schedule 
                 WHERE movie_id = (SELECT movie_id FROM movies WHERE movieName='$this->movie') 
@@ -50,7 +46,7 @@ class Booking
                 AND startHours = '$this->hour' 
                 AND userID = '$userId'";
 
-        if ($conn->query($query) == true) {
+        if ($conn->query($query)) {
 
             foreach ($this->seats as $row) {
 
@@ -67,8 +63,8 @@ class Booking
 
                 $result = $conn->query($query2);
 
-                if ($result == false) {
-                    echo "Error occured!";
+                if (!$result) {
+                    echo "Error occurred!";
                 } else {
 
                     $query3 = "UPDATE seats SET seatStatus = 'Booked'
@@ -79,8 +75,8 @@ class Booking
 
                     $result = $conn->query($query3);
 
-                    if ($result == false) {
-                        echo "Error occured!";
+                    if (!$result) {
+                        echo "Error occurred!";
                     }
                 }
             }
@@ -93,7 +89,7 @@ class Booking
         }
     }
 
-    public function cancelBooking() //this function will insert the canceled bookings in another table and delete it from the booking table
+    public function cancelBooking()
     {
         global $conn;
         include "../includes/connectDB.inc.php";
@@ -114,7 +110,7 @@ class Booking
                     AND seats.seatName = '$this->seats'
                     AND reservedseats.reservedSeat_id = '$this->reSeatID' ";
 
-        if ($conn->query($query) == true) { //if the insertion succed than delete
+        if ($conn->query($query) == true) {
 
             $query1 = "UPDATE seats SET seatStatus = 'Not booked' 
                         WHERE seatName = '$this->seats'
@@ -130,13 +126,10 @@ class Booking
 
                     $query3 = "DELETE FROM booking WHERE booking_id = '$this->booking_id'";
 
-                    //this query will give false as many times the admin cancel a seat from a customer 
                     if ($conn->query($query3) == true) {
-                        //it will become true once the admin cancels the last seat that the customer booked because than it will delete the booking_id from booking
                         header("Location: ../bookings.php?bookingCanceled=success");
                         exit();
                     } else {
-                        //head on bookings with the message success as the seat will be canceled but there exists more booked seats in customers name
                         header("Location: ../bookings.php?bookingCanceled=success");
                         exit();
                     }
@@ -164,7 +157,7 @@ class Booking
                     )
                     WHERE booking_id = '$this->booking_id' ";
 
-        if ($conn->query($query) == true) {
+        if ($conn->query($query)) {
 
             $query1 = "UPDATE seats SET seatStatus = 'Not booked' 
                         WHERE seatName = '$this->seatsPrevious'
@@ -172,12 +165,12 @@ class Booking
                         AND seats.startDate = '$this->datePrevious'
                         AND seats.startHours = '$this->hourPrevious'";
 
-            if ($conn->query($query1) == true) {
+            if ($conn->query($query1)) {
 
 
                 $query12 = "DELETE FROM reservedseats WHERE booking_id = '$this->booking_id' AND seatName = '$this->seatsPrevious' AND seat_id = '$this->seatID' ";
 
-                if ($conn->query($query12) == true) {
+                if ($conn->query($query12)) {
 
                     foreach ($this->seats as $row) {
 
@@ -192,7 +185,7 @@ class Booking
                         $result = $conn->query($query2);
 
                         if ($result == false) {
-                            echo "Error occured!";
+                            echo "Error occurred!";
                         } else {
 
                             $query3 = "UPDATE seats SET seatStatus = 'Booked' WHERE seatName = '$row' 
@@ -203,7 +196,7 @@ class Booking
                             $result = $conn->query($query3);
 
                             if ($result == false) {
-                                echo "Error occured!";
+                                echo "Error occurred!";
                             }
                         }
                     }
@@ -223,7 +216,6 @@ class Booking
         global $conn;
         include "../includes/connectDB.inc.php";
 
-        // Insert data into completed_bookings table
         $query = "INSERT INTO completed_bookings (userEmail, movieName, roomName, seatName, startDate, startHours)
             SELECT users.userEmail, movies.movieName, rooms.roomName, reservedseats.seatName, schedule.startDate, schedule.startHours
             FROM users
@@ -242,19 +234,16 @@ class Booking
 
         if ($conn->query($query) === TRUE) {
 
-            // Delete data from reservedseats table only for the given seat
             $query1 = "DELETE FROM reservedseats 
                    WHERE booking_id = '$this->booking_id' 
                    AND seatName = '$this->seats'";
 
             if ($conn->query($query1) === TRUE) {
-                // Then delete data from booking table if no more reserved seats are left for this booking
                 $query2 = "DELETE FROM booking 
                        WHERE booking_id = '$this->booking_id' 
                        AND NOT EXISTS (SELECT * FROM reservedseats WHERE booking_id = '$this->booking_id')";
 
                 if ($conn->query($query2) === TRUE) {
-                    // Update seat status in seats table
                     $query3 = "UPDATE seats SET seatStatus = 'Not booked' 
                     WHERE roomName = '$this->room'
                     AND startDate = '$this->date'
@@ -283,10 +272,8 @@ class Booking
     }
 }
 
-//check if submit button is pressed from customer
 if (isset($_POST['submit-booking'])) {
 
-    //Converting date and time in the proper format so it can be saved in DB
     $date = date('Y-m-d', strtotime($_POST['date']));
     $hour = date('H:i:s', strtotime($_POST['hours']));
 
@@ -297,39 +284,37 @@ if (isset($_POST['submit-booking'])) {
 
     $newBooking = new Booking(null, $_POST['movie'], $date, $hour, $_POST['room'], $_POST['seats'], null, null, null, null, null, null);
 
-    $newBooking->addBooking($_SESSION['userId']); //Store users id in the parameter of the function 
+    $newBooking->addBooking($_SESSION['userId']);
 
 }
 
-//check if submit button is pressed from admin
 if (isset($_POST['submit-booking-admin'])) {
 
-    //Converting date and time in the proper format so it can be saved in DB
     $date = date('Y-m-d', strtotime($_POST['date']));
     $hour = date('H:i:s', strtotime($_POST['hours']));
 
-    if ($_POST['seats'] == null) { //check if seat was choosed
+    if ($_POST['seats'] == null) {
         header("Location: ../booking.php?TicketBooked=null");
         exit;
     }
 
     $newBooking = new Booking(null, $_POST['movie'], $date, $hour, $_POST['room'], $_POST['seats'], null, null, null, null, null, null);
 
-    $newBooking->addBooking($_POST['customer']); //Store customers id in the parameter of the function 
+    $newBooking->addBooking($_POST['customer']);
 
 }
 
-if (isset($_GET['cancelBooking'])) { //check if admin pressed cancel button
+if (isset($_GET['cancelBooking'])) {
 
     $date = date('Y-m-d', strtotime($_GET['date']));
     $hour = date('H:i:s', strtotime($_GET['time']));
 
-    $deleteBooking = new Booking($_GET['cancelBooking'], null, $date, $hour, $_GET['roomName'], $_GET['seat'], null, null, null, null, null, $_GET['reSeat']); //we need only booking_id as a parameter
+    $deleteBooking = new Booking($_GET['cancelBooking'], null, $date, $hour, $_GET['roomName'], $_GET['seat'], null, null, null, null, null, $_GET['reSeat']);
 
     $deleteBooking->cancelBooking();
 }
 
-if (isset($_POST['submit-bookingUp'])) { //check if admin pressed edit button
+if (isset($_POST['submit-bookingUp'])) {
 
     $date = date('Y-m-d', strtotime($_POST['date']));
     $hour = date('H:i:s', strtotime($_POST['hours']));
@@ -337,7 +322,7 @@ if (isset($_POST['submit-bookingUp'])) { //check if admin pressed edit button
     $datePrev = date('Y-m-d', strtotime($_POST['oldDate_H']));
     $hourPrev = date('H:i:s', strtotime($_POST['oldTime_H']));
 
-    if ($_POST['seats'] == null) { //check if seat was choosed
+    if ($_POST['seats'] == null) {
         header("Location: ../bookings.php?bookingEdited=null");
         exit;
     }
@@ -347,12 +332,12 @@ if (isset($_POST['submit-bookingUp'])) { //check if admin pressed edit button
     $editBooking->editBooking();
 }
 
-if (isset($_GET['completeBooking'])) { //check if admin pressed complete button
+if (isset($_GET['completeBooking'])) {
 
     $date = date('Y-m-d', strtotime($_GET['date']));
     $hour = date('H:i:s', strtotime($_GET['time']));
 
-    $completeBooking = new Booking($_GET['completeBooking'], null, $date, $hour, $_GET['roomName'], $_GET['seat'], null, null, null, null, null, $_GET['reSeat']); //we need only booking_id as a parameter
+    $completeBooking = new Booking($_GET['completeBooking'], null, $date, $hour, $_GET['roomName'], $_GET['seat'], null, null, null, null, null, $_GET['reSeat']);
 
     $completeBooking->completeBooking();
 }

@@ -1,5 +1,6 @@
 <?php
 
+global $conn;
 include "../includes/connectDB.inc.php";
 
 if (isset($_GET['date'])) {

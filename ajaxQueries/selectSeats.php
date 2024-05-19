@@ -57,7 +57,7 @@ if (isset($_GET['room'])) {
 
 
                 if ($result2 == false) {
-                    echo "Error occured!";
+                    echo "Error occurred!";
                 } else {
                     if ($row2['seatStatus'] == "Booked") {
 

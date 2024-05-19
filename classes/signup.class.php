@@ -82,8 +82,6 @@ class UserSignup
         if ($result1->num_rows > 0) {
 
             foreach ($result1 as $row1) {
-
-                //check if the input of user exists on the database
                 if ($this->username == $row1['userName']) {
                     header("Location: ../index.php?signup=userNameExists");
                     exit;

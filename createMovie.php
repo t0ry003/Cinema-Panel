@@ -1,17 +1,16 @@
 <?php
+global $conn;
 require "header.php";
 ?>
 
     <main>
 
         <?php
-        //checking if someone that is not logged in or administrator tries to access the page through url
         if (isset($_SESSION['userId'])) {
-            if ($_SESSION['userRole'] == "Administrator") { //if it is administrator display else display nothing
+            if ($_SESSION['userRole'] == "Administrator") {
 
                 $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 
-                //check creation and alert
                 if ($url === "http://localhost/cinema/createMovie.php?movieCreated=success") {
 
                     echo '<div class="alert alert-success alert-dismissible fade show" role="alert" id="success-alert">
@@ -28,7 +27,7 @@ require "header.php";
         <span aria-hidden="true">&times;</span>
     </button>
     </div>';
-                } //check deletion and alert
+                }
                 else if ($url === "http://localhost/cinema/createMovie.php?movieDeleted=success") {
 
                     echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -45,7 +44,7 @@ require "header.php";
         <span aria-hidden="true">&times;</span>
     </button>
     </div>';
-                } //check editetion and alert
+                }
                 else if ($url === "http://localhost/cinema/createMovie.php?movieEdited=success") {
 
                     echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -85,7 +84,7 @@ require "header.php";
 
                         <?php
 
-                        if (isset($_GET['editMovie'])) { //check if edit button was pressed and display the edit form
+                        if (isset($_GET['editMovie'])) {
 
                             include "includes/connectDB.inc.php";
 
