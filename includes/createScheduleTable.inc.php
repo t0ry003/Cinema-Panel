@@ -14,7 +14,7 @@ if ($result->num_rows > 0) {
 
     foreach ($result as $row) {
 
-?>
+        ?>
 
 
         <tr>
@@ -25,14 +25,17 @@ if ($result->num_rows > 0) {
             <td><?php echo $row['startDate']; ?></td>
             <td><?php echo $row['startHours']; ?></td>
             <td>
-                <a href="classes/schedules.class.php?completeSchedule=<?php echo $row['schedule_id']; ?>&date=<?php echo $row['startDate']; ?>&time=<?php echo $row['startHours']; ?>&room=<?php echo $row['roomName']; ?>" class="btn btn-success btn-sm">Complete</a>
-                <a href="createSchedule.php?editSchedule=<?php echo $row['schedule_id']; ?>&date=<?php echo $row['startDate']; ?>&time=<?php echo $row['startHours']; ?>&room=<?php echo $row['roomName']; ?>" class="btn btn-info btn-sm">Edit</a>
-                <a href="classes/schedules.class.php?cancelSchedule=<?php echo $row['schedule_id']; ?>&date=<?php echo $row['startDate']; ?>&time=<?php echo $row['startHours']; ?>&room=<?php echo $row['roomName']; ?>" class="btn btn-danger btn-sm">Cancel</a>
+                <a href="classes/schedules.class.php?completeSchedule=<?php echo $row['schedule_id']; ?>&date=<?php echo $row['startDate']; ?>&time=<?php echo $row['startHours']; ?>&room=<?php echo $row['roomName']; ?>"
+                   class="btn btn-success btn-sm">Complete</a>
+                <a href="createSchedule.php?editSchedule=<?php echo $row['schedule_id']; ?>&date=<?php echo $row['startDate']; ?>&time=<?php echo $row['startHours']; ?>&room=<?php echo $row['roomName']; ?>"
+                   class="btn btn-info btn-sm">Edit</a>
+                <a href="classes/schedules.class.php?cancelSchedule=<?php echo $row['schedule_id']; ?>&date=<?php echo $row['startDate']; ?>&time=<?php echo $row['startHours']; ?>&room=<?php echo $row['roomName']; ?>"
+                   class="btn btn-danger btn-sm">Cancel</a>
             </td>
         </tr>
 
 
-<?php
+        <?php
     }
 }
 ?>

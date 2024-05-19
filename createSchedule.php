@@ -1,4 +1,5 @@
 <?php
+global $conn;
 require "header.php";
 ?>
 
@@ -17,7 +18,7 @@ if ($url === "http://localhost/cinema/createSchedule.php?scheduleCreated=success
 } else if ($url === "http://localhost/cinema/createSchedule.php?scheduleCreated=failed") {
 
     echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                Schedule was not created, Unknown error occured!
+                Schedule was not created, Unknown error occurred!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -26,38 +27,37 @@ if ($url === "http://localhost/cinema/createSchedule.php?scheduleCreated=success
 
 ?>
 
-<main>
-    <div style="margin: 35px 0 35px 0 ;">
+    <main>
+        <div style="margin: 35px 0 35px 0 ;">
 
-        <?php
+            <?php
 
-        if (isset($_GET['editSchedule'])) { //check if edit button was pressed and display the edit form
+            if (isset($_GET['editSchedule'])) { //check if edit button was pressed and display the edit form
 
-            include "includes/connectDB.inc.php";
+                include "includes/connectDB.inc.php";
 
-            $scheduleID = $_GET['editSchedule'];
+                $scheduleID = $_GET['editSchedule'];
 
-            //select all the data that exists on this schedule id and then display them as vaules
-            $query = "SELECT movies.movieName, rooms.roomName, rooms.seat_column, rooms.seat_row, schedule.startDate, schedule.startHours, schedule.schedule_id
+                $query = "SELECT movies.movieName, rooms.roomName, rooms.seat_column, rooms.seat_row, schedule.startDate, schedule.startHours, schedule.schedule_id
                 FROM movies
                 INNER JOIN schedule ON schedule.movie_id = movies.movie_id
                 INNER JOIN rooms ON schedule.room_id = rooms.room_id
                 WHERE schedule.schedule_id = $scheduleID ";
 
-            $result = $conn->query($query);
-            $row = mysqli_fetch_assoc($result);
+                $result = $conn->query($query);
+                $row = mysqli_fetch_assoc($result);
 
-            $query2 = "SELECT movieName FROM movies";
+                $query2 = "SELECT movieName FROM movies";
 
-            $result2 = $conn->query($query2);
-            $row2 = mysqli_fetch_assoc($result2);
+                $result2 = $conn->query($query2);
+                $row2 = mysqli_fetch_assoc($result2);
 
-            $query3 = "SELECT roomName FROM rooms";
+                $query3 = "SELECT roomName FROM rooms";
 
-            $result3 = $conn->query($query3);
-            $row3 = mysqli_fetch_assoc($result3);
+                $result3 = $conn->query($query3);
+                $row3 = mysqli_fetch_assoc($result3);
 
-            echo '<h1 class="title" style="text-align: center; margin-bottom: 30px;">Update Schedule</h1>
+                echo '<h1 class="title" style="text-align: center; margin-bottom: 30px;">Update Schedule</h1>
     <div style="max-width: 50%; margin: auto; color: white;">
                 <form action="classes/schedules.class.php" method="POST">
                 <input type="text" style="display: none;" name="schedule_idH" value="' . $row['schedule_id'] . '">
@@ -69,34 +69,34 @@ if ($url === "http://localhost/cinema/createSchedule.php?scheduleCreated=success
                         <select class="custom-select" id="inputGroupSelect01" name="sch_movieName" required>
                             <option value="' . $row['movieName'] . '" selected>' . $row['movieName'] . '</option>';
 
-            if ($result2->num_rows > 0) {
+                if ($result2->num_rows > 0) {
 
-                foreach ($result2 as $row2) {
+                    foreach ($result2 as $row2) {
 
-                    echo '<option value="' . $row2['movieName'] . '">' . $row2['movieName'] . '</option>';
+                        echo '<option value="' . $row2['movieName'] . '">' . $row2['movieName'] . '</option>';
+                    }
                 }
-            }
 
-            echo '</select>
+                echo '</select>
                             </div>';
 
-            echo '<div class="form-group">
+                echo '<div class="form-group">
                 <label for="exampleFormControlSelect1">Update room:</label>
                         <select class="custom-select" id="inputGroupSelect01" name="sch_movieRoom" required>
                             <option value="' . $row['roomName'] . '" selected>' . $row['roomName'] . '</option>';
 
-            if ($result3->num_rows > 0) {
+                if ($result3->num_rows > 0) {
 
-                foreach ($result3 as $row3) {
+                    foreach ($result3 as $row3) {
 
-                    echo '<option value="' . $row3['roomName'] . '">' . $row3['roomName'] . '</option>';
+                        echo '<option value="' . $row3['roomName'] . '">' . $row3['roomName'] . '</option>';
+                    }
                 }
-            }
 
-            echo '</select>
+                echo '</select>
                             </div>';
 
-            echo '<div class="form-group">
+                echo '<div class="form-group">
                         <label for="exampleFormControlSelect1">Input date:</label>
                         <input type="date" class="form-control" id="exampleFormControlFile1" name="sch_movieDate" value="' . $row['startDate'] . '" required>
                     </div>
@@ -109,79 +109,83 @@ if ($url === "http://localhost/cinema/createSchedule.php?scheduleCreated=success
                     </div>
                 </form>
             </div>';
-        } else {
+            } else {
 
-            include "includes/connectDB.inc.php";
+                include "includes/connectDB.inc.php";
 
-            $query = "SELECT movieName FROM movies";
+                $query = "SELECT movieName FROM movies";
 
-            $result = $conn->query($query);
-            $row = mysqli_fetch_assoc($result);
+                $result = $conn->query($query);
+                $row = mysqli_fetch_assoc($result);
 
-            $query2 = "SELECT roomName FROM rooms";
+                $query2 = "SELECT roomName FROM rooms";
 
-            $result2 = $conn->query($query2);
-            $row2 = mysqli_fetch_assoc($result2); ?>
+                $result2 = $conn->query($query2);
+                $row2 = mysqli_fetch_assoc($result2); ?>
 
-            <h1 class="title" style="text-align: center; margin-bottom: 30px;">Create Schedule</h1>
-            <div style="max-width: 50%; margin: auto; color: white;">
-                <form action="classes/schedules.class.php" method="POST">
+                <h1 class="title" style="text-align: center; margin-bottom: 30px;">Create Schedule</h1>
+                <div style="max-width: 50%; margin: auto; color: white;">
+                    <form action="classes/schedules.class.php" method="POST">
 
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Input movie:</label>
-                        <select class="custom-select" id="inputGroupSelect01" name="sch_movieName" required>
-                            <option disabled selected>Select Movie</option>
-                            <?php
-                            if ($result->num_rows > 0) {
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Input movie:</label>
+                            <select class="custom-select" id="inputGroupSelect01" name="sch_movieName" required>
+                                <option disabled selected>Select Movie</option>
+                                <?php
+                                if ($result->num_rows > 0) {
 
-                                foreach ($result as $row) {
+                                    foreach ($result as $row) {
 
-                                    echo '<option value="' . $row['movieName'] . '">' . $row['movieName'] . '</option>';
-                                }
-                            } ?>
+                                        echo '<option value="' . $row['movieName'] . '">' . $row['movieName'] . '</option>';
+                                    }
+                                } ?>
 
-                        </select>
-                    </div>
+                            </select>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Input room:</label>
-                        <select class="custom-select" id="inputGroupSelect01" name="sch_movieRoom" required>
-                            <option value="" disabled selected>Select Room</option>
-                            <?php
-                            if ($result2->num_rows > 0) {
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Input room:</label>
+                            <select class="custom-select" id="inputGroupSelect01" name="sch_movieRoom" required>
+                                <option value="" disabled selected>Select Room</option>
+                                <?php
+                                if ($result2->num_rows > 0) {
 
-                                foreach ($result2 as $row2) {
+                                    foreach ($result2 as $row2) {
 
-                                    echo '<option value="' . $row2['roomName'] . '">' . $row2['roomName'] . '</option>';
-                                }
-                            } ?>
+                                        echo '<option value="' . $row2['roomName'] . '">' . $row2['roomName'] . '</option>';
+                                    }
+                                } ?>
 
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Input date:</label>
-                        <input type="date" class="form-control" id="exampleFormControlFile1" name="sch_movieDate" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlFile1">Input hour:</label>
-                        <input type="time" class="form-control" id="exampleFormControlFile1" name="sch_movieTime" required>
-                    </div>
-                    <div style="text-align: left;">
-                        <button type="submit" class="btn btn-warning btn-lg btn-block" name="submit-scheduleCr">Create
-                            Schedule</button>
-                    </div>
-                </form>
-            </div>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Input date:</label>
+                            <input type="date" class="form-control" id="exampleFormControlFile1" name="sch_movieDate"
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlFile1">Input hour:</label>
+                            <input type="time" class="form-control" id="exampleFormControlFile1" name="sch_movieTime"
+                                   required>
+                        </div>
+                        <div style="text-align: left;">
+                            <button type="submit" class="btn btn-warning btn-lg btn-block" name="submit-scheduleCr">
+                                Create
+                                Schedule
+                            </button>
+                        </div>
+                    </form>
+                </div>
 
-        <?php
+                <?php
 
-        }
+            }
 
-        ?>
+            ?>
 
-    </div>
+        </div>
 
-</main>
+    </main>
 
 
 <?php

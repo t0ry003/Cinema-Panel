@@ -1,8 +1,7 @@
 <?php
 
-//connecting to database
+global $conn;
 include "includes/connectDB.inc.php";
-
 
 
 $query = "SELECT * FROM completed_schedule";
@@ -13,7 +12,7 @@ $row = mysqli_fetch_assoc($result);
 if ($result->num_rows > 0) {
 
     foreach ($result as $row) {
-?>
+        ?>
 
         <tr>
             <td><?php echo $row['compS_id']; ?></td>
@@ -23,7 +22,7 @@ if ($result->num_rows > 0) {
             <td><?php echo $row['startHours']; ?></td>
         </tr>
 
-<?php
+        <?php
     }
 }
 

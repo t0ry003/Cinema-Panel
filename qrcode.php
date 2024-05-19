@@ -2,9 +2,9 @@
 
 require 'vendor/autoload.php';
 
+use Endroid\QrCode\Color\Color;
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
-use Endroid\QrCode\Color\Color;
 
 $text = (isset($_GET["text"]) ? $_GET["text"] : "0");
 

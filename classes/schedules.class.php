@@ -11,7 +11,7 @@ class Schedule
     private $oldSchDate;
     private $oldSchTime;
 
-    public function __construct($id, $movie, $room, $date, $time,  $oldSchRoom,  $oldSchDate,  $oldSchTime)
+    public function __construct($id, $movie, $room, $date, $time, $oldSchRoom, $oldSchDate, $oldSchTime)
     {
         $this->sch_id = $id;
         $this->sch_movieName = $movie;
@@ -157,7 +157,6 @@ class Schedule
             }
         }
     }
-
 
 
     public function completeSchedule()

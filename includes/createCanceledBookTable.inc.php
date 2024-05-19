@@ -17,7 +17,7 @@ if ($result->num_rows > 0) {
 
     foreach ($result as $row) {
 
-?>
+        ?>
 
 
         <tr>
@@ -30,7 +30,7 @@ if ($result->num_rows > 0) {
         </tr>
 
 
-<?php
+        <?php
     }
 }
 ?>

@@ -22,6 +22,7 @@ class Room
     public function addRoom()
     {
 
+        global $conn;
         include "../includes/connectDB.inc.php";
 
         $query = "INSERT INTO rooms (room_id, roomName, seat_column, seat_row, roomDescription, room_image) 
@@ -76,9 +77,8 @@ class Room
     }
 }
 
-if (isset($_POST['submit-roomCr'])) { //check if presset submit button
+if (isset($_POST['submit-roomCr'])) {
 
-    //we need to prepare the file to a string in correct form so it can be saved correctlly
     $image = addslashes(file_get_contents($_FILES['uploadfile']['tmp_name']));
 
     $newRoom = new Room(null, $_POST['roomName'], $_POST['columnNr'], $_POST['rowNr'], $_POST['roomDescription'], $image); //we put null to the first parameter as we dont need it in this action
@@ -86,16 +86,15 @@ if (isset($_POST['submit-roomCr'])) { //check if presset submit button
     $newRoom->addRoom();
 }
 
-if (isset($_GET['deleteRoom'])) { //check if pressed delete button
+if (isset($_GET['deleteRoom'])) {
 
     $deleteRoom = new Room($_GET['deleteRoom'], null, null, null, null, null); //we put null to the other parameters as we don't need them
 
     $deleteRoom->deleteRoom();
 }
 
-if (isset($_POST['submit-roomUp'])) { //check if pressed edit button
+if (isset($_POST['submit-roomUp'])) {
 
-    //we need to prepare the file to a string in correct form so it can be saved correctlly
     $image = addslashes(file_get_contents($_FILES['uploadfile']['tmp_name']));
 
     $updateRoom = new Room($_POST['room_idH'], $_POST['roomName'], $_POST['columnNr'], $_POST['rowNr'], $_POST['roomDescription'], $image);

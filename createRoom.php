@@ -1,4 +1,5 @@
 <?php
+global $conn;
 require "header.php";
 ?>
 
@@ -27,23 +28,23 @@ if ($url === "http://localhost/cinema/createRoom.php?roomCreated=success") {
 
 ?>
 
-<main>
+    <main>
 
-    <?php
+        <?php
 
-    if (isset($_GET['editRoom'])) { //check if edit button was pressed and display the edit form
+        if (isset($_GET['editRoom'])) { //check if edit button was pressed and display the edit form
 
-        include "includes/connectDB.inc.php";
+            include "includes/connectDB.inc.php";
 
-        $roomID = $_GET['editRoom'];
+            $roomID = $_GET['editRoom'];
 
-        $query = "SELECT * FROM rooms WHERE room_id = $roomID ";
+            $query = "SELECT * FROM rooms WHERE room_id = $roomID ";
 
-        $result = $conn->query($query);
-        $row = mysqli_fetch_assoc($result);
+            $result = $conn->query($query);
+            $row = mysqli_fetch_assoc($result);
 
-        //show edit form
-        echo '
+            //show edit form
+            echo '
                 <div style="margin: 35px 0 35px 0 ;">
         <h1 class="title" style="text-align: center; margin-bottom: 30px;">Update Room</h1>
         <div style="max-width: 50%; margin: auto; color: white;">
@@ -76,8 +77,8 @@ if ($url === "http://localhost/cinema/createRoom.php?roomCreated=success") {
             </div>
         </form>
             ';
-    } else { //else show creation form
-        echo '
+        } else { //else show creation form
+            echo '
                 <div style="margin: 35px 0 35px 0 ;">
         <h1 class="title" style="text-align: center; margin-bottom: 30px;">Create Room</h1>
         <div style="max-width: 50%; margin: auto; color: white;">
@@ -104,14 +105,14 @@ if ($url === "http://localhost/cinema/createRoom.php?roomCreated=success") {
                 <button type="submit" class="btn btn-warning btn-lg btn-block" name="submit-roomCr">Create Room</button>
         </form>
         ';
-    }
+        }
 
-    ?>
+        ?>
 
-    </div>
-    </div>
+        </div>
+        </div>
 
-</main>
+    </main>
 
 
 <?php

@@ -21,7 +21,7 @@ if (isset($_GET['room'])) {
 
             <option selected value="<?php echo $row['startDate']; ?> "><?php echo $row['startDate']; ?></option>
 
-<?php
+            <?php
         }
     }
 }

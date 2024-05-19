@@ -342,7 +342,7 @@ if (isset($_POST['submit-bookingUp'])) { //check if admin pressed edit button
         exit;
     }
 
-    $editBooking = new Booking($_POST['booking_idH'],  $_POST['movie'], $date, $hour, $_POST['room'], $_POST['seats'], $datePrev, $hourPrev, $_POST['oldRoom_H'], $_POST['oldSeat_H'], $_POST['oldSeatID_H'], null);
+    $editBooking = new Booking($_POST['booking_idH'], $_POST['movie'], $date, $hour, $_POST['room'], $_POST['seats'], $datePrev, $hourPrev, $_POST['oldRoom_H'], $_POST['oldSeat_H'], $_POST['oldSeatID_H'], null);
 
     $editBooking->editBooking();
 }
@@ -352,7 +352,7 @@ if (isset($_GET['completeBooking'])) { //check if admin pressed complete button
     $date = date('Y-m-d', strtotime($_GET['date']));
     $hour = date('H:i:s', strtotime($_GET['time']));
 
-    $completeBooking = new Booking($_GET['completeBooking'], null,  $date, $hour, $_GET['roomName'],  $_GET['seat'], null, null, null, null, null, $_GET['reSeat']); //we need only booking_id as a parameter
+    $completeBooking = new Booking($_GET['completeBooking'], null, $date, $hour, $_GET['roomName'], $_GET['seat'], null, null, null, null, null, $_GET['reSeat']); //we need only booking_id as a parameter
 
     $completeBooking->completeBooking();
 }

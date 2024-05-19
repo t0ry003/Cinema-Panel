@@ -38,17 +38,19 @@ if ($result->num_rows > 0) {
         $seat_row = $seat[0];
         $seat_column = $seat[1];
 
-?>
+        ?>
         <tr>
             <td><?php echo $row['startDate']; ?></td>
             <td><?php echo $row['movieName']; ?></td>
             <td><?php echo $row['roomName']; ?></td>
-            <td><?php echo "Row: ".$seat_row." Col: ".$seat_column ?></td>
+            <td><?php echo "Row: " . $seat_row . " Col: " . $seat_column ?></td>
             <td><?php echo $row['booked_date']; ?></td>
-            <td><a href="./qrcode.php?text=<?php echo $id ?>" target="_blank"><img alt="<?php echo $id ?>" src="./qrcode.php?text=<?php echo $id ?>" /></a></td>
+            <td><a href="./qrcode.php?text=<?php echo $id ?>" target="_blank"><img alt="<?php echo $id ?>"
+                                                                                   src="./qrcode.php?text=<?php echo $id ?>"/></a>
+            </td>
         </tr>
 
-<?php
+        <?php
     }
 }
 

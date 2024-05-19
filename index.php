@@ -5,13 +5,11 @@ require "header.php";
     <main>
 
         <script>
-            // Function to get query parameter from URL
             function getQueryParam(name) {
                 const urlParams = new URLSearchParams(window.location.search);
                 return urlParams.get(name);
             }
 
-            // Function to display dynamic alerts based on query parameters
             function displayAlerts() {
                 const loginStatus = getQueryParam('login');
                 const signupStatus = getQueryParam('signup');

@@ -20,7 +20,7 @@ AND schedule.room_id = rooms.room_id";
 
             <option selected value="<?php echo $row['roomName']; ?>"><?php echo $row['roomName']; ?></option>
 
-<?php
+            <?php
         }
     }
 }

@@ -18,12 +18,13 @@ class Movie
     public function addMovie()
     {
 
+        global $conn;
         include "../includes/connectDB.inc.php";
 
         $query = "INSERT INTO movies 
                   VALUES (NULL, '$this->movieName', '$this->movieImage', '$this->movieDescription')";
 
-        if ($conn->query($query) == true) {
+        if ($conn->query($query)) {
             header("Location: ../createMovie.php?movieCreated=success");
             exit();
         } else {
@@ -34,6 +35,7 @@ class Movie
 
     public function deleteMovie()
     {
+        global $conn;
         include "../includes/connectDB.inc.php";
 
         $query = "DELETE FROM movies WHERE movie_id = $this->movie_id ";
@@ -49,6 +51,7 @@ class Movie
 
     public function editMovie()
     {
+        global $conn;
         include "../includes/connectDB.inc.php";
 
         $query = "UPDATE movies
@@ -68,24 +71,23 @@ class Movie
     }
 }
 
-if (isset($_POST['submit-movieCr'])) { // check if create button was pressed
+if (isset($_POST['submit-movieCr'])) {
 
-    //we need to prepare the file to a string in correct form so it can be saved correctlly
     $image = addslashes(file_get_contents($_FILES['movieImage']['tmp_name']));
 
-    $newMovie = new Movie(null, $_POST['movieName'], $_POST['movieDescription'], $image); //we put null to the first parameter as we dont need it in this action
+    $newMovie = new Movie(null, $_POST['movieName'], $_POST['movieDescription'], $image);
 
     $newMovie->addMovie();
 }
 
-if (isset($_GET['delete'])) { // check if delete button was pressed
+if (isset($_GET['delete'])) {
 
-    $deleteMovie = new Movie($_GET['delete'], null, null, null); //we put null to the other parameters as we don't need them
+    $deleteMovie = new Movie($_GET['delete'], null, null, null);
 
     $deleteMovie->deleteMovie();
 }
 
-if (isset($_POST['submit-movieUP'])) { // check if edit button was pressed
+if (isset($_POST['submit-movieUP'])) {
 
     $image = addslashes(file_get_contents($_FILES['movieImage']['tmp_name']));
 

@@ -23,7 +23,7 @@ if (isset($_GET['date'])) {
 
             <option selected value="<?php echo $row['startHours']; ?>"><?php echo $row['startHours']; ?></option>
 
-<?php
+            <?php
         }
     }
 }

@@ -104,6 +104,7 @@
     color: #ffffff;
     transition: color 0.2s;
 }
+
 .navbar-light .navbar-nav .nav-link:hover {
     color: #cccccc;
 }

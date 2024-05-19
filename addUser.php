@@ -26,55 +26,56 @@ if ($url === "http://localhost/cinema/addUser.php?userAdded=succes") {
 
 ?>
 
-<main>
+    <main>
 
-    <div style="margin: 35px 0 35px 0 ;">
-        <h1 class="title" style="text-align: center; margin-bottom: 30px;">Add User</h1>
-        <div style="max-width: 50%; margin: auto; color: white;">
-            <form action="classes/signup.class.php" method="post" id="signup-form">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputFullname">First Name</label>
-                        <input type="text" class="form-control" id="inputFullname" name="firstname" required>
+        <div style="margin: 35px 0 35px 0 ;">
+            <h1 class="title" style="text-align: center; margin-bottom: 30px;">Add User</h1>
+            <div style="max-width: 50%; margin: auto; color: white;">
+                <form action="classes/signup.class.php" method="post" id="signup-form">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputFullname">First Name</label>
+                            <input type="text" class="form-control" id="inputFullname" name="firstname" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputFullname">Last Name</label>
+                            <input type="text" class="form-control" id="inputFullname" name="lastname" required>
+                        </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputFullname">Last Name</label>
-                        <input type="text" class="form-control" id="inputFullname" name="lastname" required>
+                    <div class="form-group">
+                        <label for="inputEmail4">Email</label>
+                        <input type="email" class="form-control" id="inputEmail4" name="email" required>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputEmail4">Email</label>
-                    <input type="email" class="form-control" id="inputEmail4" name="email" required>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputUsername">Username</label>
-                        <input type="text" class="form-control" id="inputUsername" name="username" required>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputUsername">Username</label>
+                            <input type="text" class="form-control" id="inputUsername" name="username" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">Password</label>
+                            <input type="password" class="form-control" id="inputPassword4" name="password" required>
+                        </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputPassword4">Password</label>
-                        <input type="password" class="form-control" id="inputPassword4" name="password" required>
+                    <div class="form-group">
+                        <label for="inputPhone">Phone number</label>
+                        <input type="text" class="form-control" id="inputPhone" name="phonenumber" required>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputPhone">Phone number</label>
-                    <input type="text" class="form-control" id="inputPhone" name="phonenumber" required>
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlSelect1">Input role:</label>
-                    <select class="custom-select" id="inputGroupSelect01" name="userRole" required>
-                        <option value="" disabled selected>Select Role</option>
-                        <option value="Customer">Customer</option>
-                        <option value="Administrator">Administrator</option>
-                    </select>
-                </div>
-                <span id="captcha_error" class="text-danger"></span>
-                <br>
-                <button type="submit" class="btn btn-warning btn-lg btn-block" name="signup-submit-admin">Add User</button>
-            </form>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Input role:</label>
+                        <select class="custom-select" id="inputGroupSelect01" name="userRole" required>
+                            <option value="" disabled selected>Select Role</option>
+                            <option value="Customer">Customer</option>
+                            <option value="Administrator">Administrator</option>
+                        </select>
+                    </div>
+                    <span id="captcha_error" class="text-danger"></span>
+                    <br>
+                    <button type="submit" class="btn btn-warning btn-lg btn-block" name="signup-submit-admin">Add User
+                    </button>
+                </form>
+            </div>
         </div>
-    </div>
-</main>
+    </main>
 
 
 <?php
