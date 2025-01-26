@@ -12,6 +12,10 @@ using PHP, MySQL, Composer and Bootstrap.
 - User panel for selecting seats
 - QR code generation for selected seats (using `bacon/bacon-qr-code`)
 
+### Extra [Cinema-Scanner](https://github.com/t0ry003/Cinema-Scanner)
+
+- Ticket scanner with active ticket validation (it removes the ticket after validation)
+
 ## Installation
 
 1. Clone the repository
